@@ -1,0 +1,155 @@
+"""
+This file is part of the tinyq python module
+Author:         Reza Ahmadzadeh
+Website:        https://github.com/KieranWynn/pyquaternion
+Documentation:  http://kieranwynn.github.io/pyquaternion/
+Version:         1.0.0
+License:         The MIT License (MIT)
+Copyright (c) 2015 Kieran Wynn
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+quaternion.py - This file defines the core Quaternion class
+"""
+
+import numpy as np
+
+class Quaternion:
+    """
+    TinyQ
+    a library for quaternion operations in Python """
+
+    def __init__(self, q=None, a=None, n=None):
+        # either q or (n,a) has to be given
+        if q is None:
+            # convert (n,a) to quaternion
+            self.q = np.concatenate(([np.cos(a/2)],n*np.sin(a/2)),axis=0)
+        else:
+            # convert q to (n,a) --- not used
+            self.q = q / np.dot(q,q)
+            #if n is None and a is None:
+            #    self.a = 2*np.arccos(self.q[0])
+            #    self.n = self.q[1:] / np.sin(self.a/2)
+
+    @property
+    def w(self):
+        return self.q[0]
+
+    @property
+    def x(self):
+        return self.q[1]
+
+    @property
+    def y(self):
+        return self.q[2]
+
+    @property
+    def z(self):
+        return self.q[3]
+    
+    @property
+    def vector(self):
+        ''' get the vector part '''
+        return self.q[1:]
+
+    @property
+    def scalar(self):
+        ''' get the scalar part '''
+        return self.q[0]
+
+    @property
+    def magnitude(self):
+        ''' get the magnitude '''
+        return np.sqrt(np.dot(self.q, self.q))
+
+    def is_unit(self, tol = 1e-10):
+        ''' check for unit quaternion '''
+        return np.abs(1.0 - self.magnitude) < tol
+
+    @property
+    def normalized(self):
+        ''' normalize a quaternion '''
+        if not self.is_unit():
+            n = self.magnitude
+            if n > 0:
+                self.q /= n
+
+        return self.__class__(q=self.q)
+
+    @property
+    def conjugate(self):
+        ''' get conjugate of a quaternion '''
+        return self.__class__(q=np.concatenate((np.array([self.scalar]), -self.vector), axis=0))
+
+    @property
+    def inverse(self):
+        ''' get inverse of a quaternion '''
+        ss = np.dot(self.q, self.q)
+        if ss > 0:
+            d = self.conjugate
+            return self.__class__(q = d.q / ss)
+        else:
+            raise ZeroDivisionError("a zero quaternion cannot be inverted")
+   
+    def ToAxisAngle(self):
+        ''' quaternion to axis-angle '''
+        self.a = 2*np.arccos(self.q[0])
+        self.n = self.q[1:] / np.sin(self.a/2)
+        return self.n, self.a
+
+    #### OPERATIONS ####
+    def __add__(self, other):
+        return self.__class__(q = self.q + other.q)
+
+    def __sub__(self, other):
+        return self.__class__(q = self.q - other.q)
+
+    def __mul__(self, other):
+        q1 = self.q
+        q2 = other.q
+        w = q1[0]*q2[0] - np.dot(q1[1:],q2[1:])
+        v = q2[0]*q1[1:] + q1[0]*q2[1:] + np.cross(q1[1:],q2[1:])
+        m = np.concatenate((np.array([w]),v), axis = 0)
+        return self.__class__(q=m)
+
+    def __div__(self, other):
+        q2i = other.inverse
+        return self.__mul__(q2i)
+
+    def rotatePoint(self, p):
+        '''
+        rotate a point using P = q P q^-1
+        '''
+        # convert the point to a quaternion format
+        P = np.concatenate((np.array([0.]), p), axis = 0)
+        P = self.__class__(q=P)
+        Pn = self.__mul__(P)
+        Pr = Pn.__mul__(self.inverse)
+        return Pr.vector
+
+    def __str__(self):
+        ''' the format when we print the quaternion '''
+        return "[{:.3f} {:.3f} {:.3f} {:.3f}]".format(self.q[0],self.q[1],self.q[2],self.q[3])
+
+    def __repr__(self):
+        ''' the format in the command line, using repr() '''
+        return "Quaternion({}, {}, {}, {})".format(repr(self.q[0]),repr(self.q[1]),repr(self.q[2]),repr(self.q[3]))
+
+'''
+if __name__ == "__main__":
+    q1 = Quaternion(a=np.pi/3, n=np.array([0.,0.,1.]))
+    p = np.array([1.,2.,-1.])
+    print(q1.rotatePoint(p))
+'''
