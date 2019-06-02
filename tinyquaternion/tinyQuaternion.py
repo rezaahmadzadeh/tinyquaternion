@@ -37,8 +37,9 @@ class Quaternion:
             # convert (n,a) to quaternion
             self.q = np.concatenate(([np.cos(a/2)],n*np.sin(a/2)),axis=0)
         else:
+            # self.q = q / np.dot(q,q)
+            self.q = q
             # convert q to (n,a) --- not used
-            self.q = q / np.dot(q,q)
             #if n is None and a is None:
             #    self.a = 2*np.arccos(self.q[0])
             #    self.n = self.q[1:] / np.sin(self.a/2)
@@ -110,13 +111,13 @@ class Quaternion:
         return self.n, self.a
 
     #### OPERATIONS ####
-    def __add__(self, other):
+    def add(self, other):
         return self.__class__(q = self.q + other.q)
 
-    def __sub__(self, other):
+    def sub(self, other):
         return self.__class__(q = self.q - other.q)
 
-    def __mul__(self, other):
+    def mul(self, other):
         q1 = self.q
         q2 = other.q
         w = q1[0]*q2[0] - np.dot(q1[1:],q2[1:])
@@ -124,9 +125,9 @@ class Quaternion:
         m = np.concatenate((np.array([w]),v), axis = 0)
         return self.__class__(q=m)
 
-    def __div__(self, other):
+    def div(self, other):
         q2i = other.inverse
-        return self.__mul__(q2i)
+        return self.mul(q2i)
 
     def rotatePoint(self, p):
         '''
@@ -135,8 +136,8 @@ class Quaternion:
         # convert the point to a quaternion format
         P = np.concatenate((np.array([0.]), p), axis = 0)
         P = self.__class__(q=P)
-        Pn = self.__mul__(P)
-        Pr = Pn.__mul__(self.inverse)
+        Pn = self.mul(P)
+        Pr = Pn.mul(self.inverse)
         return Pr.vector
 
     def __str__(self):

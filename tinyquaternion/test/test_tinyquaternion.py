@@ -22,10 +22,10 @@ q2 = Quaternion(q=np.array([1.,1.,1.,0.]))
 
 print(q1)
 print(q2)
-print(q1.__add__(q2))
-print(q1.__sub__(q2))
-print(q1.__mul__(q2))
-print(q1.__div__(q2))
+print(q1.add(q2))
+print(q1.sub(q2))
+print(q1.mul(q2))
+print(q1.div(q2))
 
 
 p = np.array([1.,2.,-1.])
