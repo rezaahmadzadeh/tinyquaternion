@@ -104,7 +104,7 @@ class Quaternion:
         else:
             raise ZeroDivisionError("a zero quaternion cannot be inverted")
    
-    def ToAxisAngle(self):
+    def axisangle(self):
         ''' quaternion to axis-angle '''
         self.a = 2*np.arccos(self.q[0])
         self.n = self.q[1:] / np.sin(self.a/2)

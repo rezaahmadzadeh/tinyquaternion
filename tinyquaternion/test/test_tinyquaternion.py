@@ -14,7 +14,7 @@ print(q.normalized)
 print(q.is_unit())
 print(q.conjugate)
 print(q.inverse)
-print(q.ToAxisAngle())
+print(q.axisangle())
 
 
 q1 = Quaternion(a=np.pi/3, n=np.array([0.,0.,1.]))
