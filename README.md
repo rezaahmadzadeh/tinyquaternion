@@ -64,3 +64,38 @@ plot_cube(cube2)
 ```
 
 !["rotated cube"](https://github.com/rezaahmadzadeh/tinyquaternion/blob/master/tinyquaternion/test/results/Figure_2.png "rotated cube")
+
+Now let's perform two rotations using quaternions. We consider a new rotation and then combine it with the previous rotation.
+Our previous rotation was about Y-axis by 90 degrees. For this one we want to have a rotation about X-axis by 90 degrees. The quaternion will look like this:
+
+``` python
+q2 = Quaternion(a=np.pi/2, n=np.array([1.,0.,0.])) # rotate about x by 90
+```
+
+Now, we should combine the two quaternions. The rule is that "First rotation should go last", so we can write
+
+``` python
+q = q2.mul(q) 
+```
+This quaternion has the effect of a rotation about Y-axis, followed by a rotation about X-axis.
+
+Now perform the rotation:
+
+``` python
+p1r = q.rotatePoint(p1)
+p2r = q.rotatePoint(p2)
+p3r = q.rotatePoint(p3)
+p4r = q.rotatePoint(p4)
+```
+
+and plot the rotated cube:
+
+``` python
+cube3 = [
+    (p1r[0],p1r[1],p1r[2]), (p2r[0],p2r[1],p2r[2]), (p3r[0],p3r[1],p3r[2]), (p4r[0],p4r[1],p4r[2])
+]
+plot_cube(cube3)
+```
+
+!["rotated cube"](https://github.com/rezaahmadzadeh/tinyquaternion/blob/master/tinyquaternion/test/results/Figure_3.png "multiple rotations")
+
