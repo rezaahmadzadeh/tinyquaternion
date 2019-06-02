@@ -1,7 +1,25 @@
-# tinyquaternion
+# tinyQuaternion
 A tiny python module for Quaternions
 
-### Define Quaternions
+Author: Reza Ahmadzadeh - 2019
+
+## 1. Installation
+
+Copy the `tinyQuaternion.p` file into your source folder and import the module as follows:
+
+``` python
+from tinyQuaternion import Quaternion
+```
+
+The only dependency is `numpy`, so import it as follows:
+
+``` python
+import numpy as np
+```
+
+## 2. Documentation
+
+### 2.1 Define Quaternions
 
 In this package, there are two methods to define a quaternion:
 
@@ -24,7 +42,7 @@ q
 Quaternion(0.8660254037844387, 0.0, 0.0, 0.49999999999999994)
 ```
 
-### Get individual elements 
+### 2.2. Get individual elements 
 
 Each element of the quaternion can be retrieved as follows:
 
@@ -48,7 +66,7 @@ Example:
 >>> 
 ```
 
-### Get vector or scalar parts
+### 2.3. Get vector or scalar parts
 
 ``` python
 q.scalar
@@ -64,7 +82,7 @@ array([0. , 0. , 0.5])
 >>> 
 ```
 
-### Get magnitude 
+### 2.4. Get magnitude 
 
 ``` python
 q.magnitude
@@ -77,7 +95,7 @@ Example
 1.0
 ```
 
-### Check if the quaternion is normalized
+### 2.5. Check if the quaternion is normalized
 
 ``` python
 q.is_unit()
@@ -90,7 +108,7 @@ Example:
 True
 ```
 
-### Get normalized quaternion
+### 2.6. Get normalized quaternion
 
 ``` python
 q.normalized
@@ -103,7 +121,7 @@ Example:
 Quaternion(0.8660254037844387, 0.0, 0.0, 0.49999999999999994)
 ```
 
-### Get Conjugate
+### 2.7. Get Conjugate
 
 ``` python
 q.conjugate
@@ -116,7 +134,7 @@ Example:
 Quaternion(0.8660254037844387, -0.0, -0.0, -0.49999999999999994)
 ```
 
-### Get Inverse
+### 2.8. Get Inverse
 
 ``` python
 q.inverse
@@ -129,9 +147,74 @@ Example:
 Quaternion(0.8660254037844387, -0.0, -0.0, -0.49999999999999994)
 ```
 
+### 2.9. Extract Axis-Angle from Quaternion
 
+``` python
+q.axisangle()
+```
 
-## Using Quaternions for Rotation
+Example:
+
+``` python
+>>> q.axisangle()
+(array([0., 0., 1.]), 1.0471975511965974)
+```
+
+keep in mind that this is not equal to the original quaternion that we defined above. The main reason is that we have performed some operations on the original quaternion. 
+
+### 2.10. Main operations 
+
+``` python
+# addition
+q1.add(q2)
+
+# subtraction
+q1.sub(q2)
+
+# multiplication
+q1.mul(q2)
+
+# division
+q1.div(q2)
+```
+
+Example:
+
+``` python
+>>> q1 = Quaternion(np.array([1.,0.,0.,0.]))
+>>> q2 = Quaternion(np.array([0.,0.,0.,1.]))
+>>> q1.add(q2)
+Quaternion(1.0, 0.0, 0.0, 1.0)
+>>> q1.sub(q2)
+Quaternion(1.0, 0.0, 0.0, -1.0)
+>>> q1.mul(q2)
+Quaternion(0.0, 0.0, 0.0, 1.0)
+>>> q1.div(q2)
+Quaternion(0.0, 0.0, 0.0, -1.0)
+```
+
+Note that these operations do not perfrom normalization implicitly.
+
+### 2.11. Rotate point in 3D space using Quaternion (axis-angle)
+
+``` python
+q.rotatePoint(p)
+```
+
+Example:
+
+The point should be define using a 3D numpy array as follows:
+
+``` python
+>>> q = Quaternion(a=np.pi/3, n=np.array([0.,0.,1.]))
+>>> p = np.array([1.,2.,-1.])
+>>> q.rotatePoint(p)
+array([-1.23205081,  1.8660254 , -1.        ])
+```
+
+## 3. Tutorials
+
+## 3.1. Rotation Using Quaternions
 
 The code can be found in the `test` folder. First import all the required packages:
 
