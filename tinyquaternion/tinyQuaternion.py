@@ -1,11 +1,11 @@
 """
 This file is part of the tinyq python module
 Author:         Reza Ahmadzadeh
-Website:        https://github.com/KieranWynn/pyquaternion
-Documentation:  http://kieranwynn.github.io/pyquaternion/
+Website:        https://github.com/rezaahmadzadeh/tinyquaternion
+Documentation:  https://github.com/rezaahmadzadeh/tinyquaternion
 Version:         1.0.0
 License:         The MIT License (MIT)
-Copyright (c) 2015 Kieran Wynn
+Copyright (c) 2019 Reza Ahmadzadeh
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -21,7 +21,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-quaternion.py - This file defines the core Quaternion class
+tinyQuaternion.py - This file defines the core Quaternion class
 """
 
 import numpy as np
