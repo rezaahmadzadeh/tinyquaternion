@@ -1,6 +1,133 @@
 # tinyquaternion
 A tiny python module for Quaternions
 
+### Define Quaternions
+
+In this package, there are two methods to define a quaternion:
+
+1. using a 4D array representing the elements of a quaternion `q=[w,x,y,z]`. Define the array using numpy's `ndarray`.
+
+``` python
+q = Quaternion(q=np.array([0., 0., 1., 0.]))
+
+>>> q
+Quaternion(0.0, 0.0, 1.0, 0.0)
+```
+
+
+2. using an axis-angle representation. Use `n` for denoting the axis of rotation and `a` for denoting the angle of rotation in radians.
+
+``` python
+q = Quaternion(a=np.pi/3, n=np.array([0.,0.,1.]))
+
+q
+Quaternion(0.8660254037844387, 0.0, 0.0, 0.49999999999999994)
+```
+
+### Get individual elements 
+
+Each element of the quaternion can be retrieved as follows:
+
+``` python
+q.w
+q.x
+q.y
+q.z
+```
+Example:
+
+``` python
+>>> q.w
+0.8660254037844387
+>>> q.x
+0.0
+>>> q.y
+0.0
+>>> q.z
+0.49999999999999994
+>>> 
+```
+
+### Get vector or scalar parts
+
+``` python
+q.scalar
+q.vector
+```
+Example:
+
+``` python
+>>> q.scalar
+0.8660254037844387
+>>> q.vector
+array([0. , 0. , 0.5])
+>>> 
+```
+
+### Get magnitude 
+
+``` python
+q.magnitude
+```
+
+Example 
+
+``` python
+>>> q.magnitude
+1.0
+```
+
+### Check if the quaternion is normalized
+
+``` python
+q.is_unit()
+```
+
+Example:
+
+``` python
+>>> q.is_unit()
+True
+```
+
+### Get normalized quaternion
+
+``` python
+q.normalized
+```
+
+Example:
+
+``` python
+>>> q.normalized
+Quaternion(0.8660254037844387, 0.0, 0.0, 0.49999999999999994)
+```
+
+### Get Conjugate
+
+``` python
+q.conjugate
+```
+
+Example:
+
+``` python
+>>> q.conjugate
+Quaternion(0.8660254037844387, -0.0, -0.0, -0.49999999999999994)
+```
+
+### Get Inverse
+
+``` python
+q.inverse
+```
+
+Example:
+
+``` python
+>>> q.inverse
+Quaternion(0.8660254037844387, -0.0, -0.0, -0.49999999999999994)
+```
 
 
 
