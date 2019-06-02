@@ -21,7 +21,7 @@ cube1 = [
 plot_cube(cube1)
 
 # define a known quaternion
-q = Quaternion(a=np.pi/2, n=np.array([0., 1., 0.]))
+q = Quaternion(a=np.pi/2, n=np.array([0., 1., 0.]))  # rotate about y by 90
 # rotate the cube
 p1r = q.rotatePoint(p1)
 p2r = q.rotatePoint(p2)
@@ -38,4 +38,31 @@ cube2 = [
     (p1r[0],p1r[1],p1r[2]), (p2r[0],p2r[1],p2r[2]), (p3r[0],p3r[1],p3r[2]), (p4r[0],p4r[1],p4r[2])
 ]
 plot_cube(cube2)
+
+
+
+'''
+combining two rotations q3 = q2 * q1
+'''
+q2 = Quaternion(a=np.pi/2, n=np.array([1.,0.,0.])) # rotate about x by 90
+
+
+# the combination is a rotation about y and then a rotation about x
+q = q2.mul(q) 
+
+p1r = q.rotatePoint(p1)
+p2r = q.rotatePoint(p2)
+p3r = q.rotatePoint(p3)
+p4r = q.rotatePoint(p4)
+
+print("rotated cube:")
+print(p1r)
+print(p2r)
+print(p3r)
+print(p4r)
+
+cube3 = [
+    (p1r[0],p1r[1],p1r[2]), (p2r[0],p2r[1],p2r[2]), (p3r[0],p3r[1],p3r[2]), (p4r[0],p4r[1],p4r[2])
+]
+plot_cube(cube3)
 
