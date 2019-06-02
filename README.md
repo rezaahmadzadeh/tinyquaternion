@@ -5,7 +5,7 @@ Author: Reza Ahmadzadeh - 2019
 
 ## 1. Installation
 
-Copy the `tinyQuaternion.p` file into your source folder and import the module as follows:
+Copy the `tinyQuaternion.py` file into your source folder and import the module as follows:
 
 ``` python
 from tinyQuaternion import Quaternion
