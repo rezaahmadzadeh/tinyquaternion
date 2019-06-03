@@ -121,7 +121,7 @@ True
 
 ### 2.6. Normalize
 
-To normalize the quaternion use the `normalized` method. Note that `q` will change to the normalized form. 
+To normalize the quaternion use the `normalized` method. 
 
 ``` python
 q.normalized
@@ -141,7 +141,7 @@ To retrieve the conjugate of a quaternion `q=[w,x,y,z]` as `q*=[w,-x,-y,-z]` use
 ``` python
 q.conjugate
 ```
-Note that using this will change `q`.
+
 
 Example:
 
@@ -158,7 +158,6 @@ To retrieve the inverse of a quaternion use the `inverse` method as follows:
 q.inverse
 ```
 
-Note that using this will change `q`.
 
 Example:
 
