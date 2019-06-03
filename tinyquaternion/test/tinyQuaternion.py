@@ -85,9 +85,11 @@ class Quaternion:
         if not self.is_unit():
             n = self.magnitude
             if n > 0:
-                self.q /= n
+                # self.q /= n # this will change the main object
+                return self.__class__(q= self.q / n)
 
-        return self.__class__(q=self.q)
+        return self.q
+         
 
     @property
     def conjugate(self):
