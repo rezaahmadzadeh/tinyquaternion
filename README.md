@@ -5,7 +5,7 @@ Author: Reza Ahmadzadeh - 2019
 
 ## 1. Installation
 
-Copy the `tinyQuaternion.py` file into your source folder and import the module as follows:
+Clone the repository. For separate projects you need to copy the `tinyQuaternion.py` file into your source folder and import the module as follows:
 
 ``` python
 from tinyQuaternion import Quaternion
@@ -42,9 +42,9 @@ q
 Quaternion(0.8660254037844387, 0.0, 0.0, 0.49999999999999994)
 ```
 
-### 2.2. Get individual elements 
+### 2.2. Quaternion elements 
 
-Each element of the quaternion can be retrieved as follows:
+Each quaternion is a vector `q=[w,x,y,z]` with four elements `w`, `x`, `y`, `z`. Each element of the quaternion can be retrieved as follows:
 
 ``` python
 q.w
@@ -66,10 +66,17 @@ Example:
 >>> 
 ```
 
-### 2.3. Get vector or scalar parts
+### 2.3. Scalar and Vector parts
+
+To retrieve the scalar part of the quaternion, `w` use the `scalar` method as follows:
 
 ``` python
 q.scalar
+```
+
+and to retrieve the vector part of the quaternion, `[x,y,z]` use the `vector` method as follows:
+
+``` python
 q.vector
 ```
 Example:
@@ -82,7 +89,9 @@ array([0. , 0. , 0.5])
 >>> 
 ```
 
-### 2.4. Get magnitude 
+### 2.4. Magnitude 
+
+Get the norm or magnitude of the quaternion as follows: 
 
 ``` python
 q.magnitude
@@ -97,6 +106,8 @@ Example
 
 ### 2.5. Check if the quaternion is normalized
 
+To see if the quaternion is normalized you can use the `is_unit()` method. This will return `True` if the magnitude of the quaternion is equal to 1 and `False` otherwise.
+
 ``` python
 q.is_unit()
 ```
@@ -108,7 +119,9 @@ Example:
 True
 ```
 
-### 2.6. Get normalized quaternion
+### 2.6. Normalize
+
+To normalize the quaternion use the `normalized` method. Note that `q` will change to the normalized form. 
 
 ``` python
 q.normalized
@@ -121,11 +134,14 @@ Example:
 Quaternion(0.8660254037844387, 0.0, 0.0, 0.49999999999999994)
 ```
 
-### 2.7. Get Conjugate
+### 2.7. Conjugate
+
+To retrieve the conjugate of a quaternion `q=[w,x,y,z]` as `q*=[w,-x,-y,-z]` use the `conjugate` method as follows:
 
 ``` python
 q.conjugate
 ```
+Note that using this will change `q`.
 
 Example:
 
@@ -134,11 +150,15 @@ Example:
 Quaternion(0.8660254037844387, -0.0, -0.0, -0.49999999999999994)
 ```
 
-### 2.8. Get Inverse
+### 2.8. Inverse
+
+To retrieve the inverse of a quaternion use the `inverse` method as follows:
 
 ``` python
 q.inverse
 ```
+
+Note that using this will change `q`.
 
 Example:
 
@@ -148,6 +168,8 @@ Quaternion(0.8660254037844387, -0.0, -0.0, -0.49999999999999994)
 ```
 
 ### 2.9. Extract Axis-Angle from Quaternion
+
+To extract the axis-angle form of a quaternion use this method as follows:
 
 ``` python
 q.axisangle()
