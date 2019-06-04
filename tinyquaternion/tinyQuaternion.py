@@ -105,6 +105,25 @@ class Quaternion:
             return self.__class__(q = d.q / ss)
         else:
             raise ZeroDivisionError("a zero quaternion cannot be inverted")
+
+    @property
+    def log(self):
+        ''' get log of a quaternion '''
+        v = self.vector
+        s = self.scalar
+        z = (v / np.sqrt(np.dot(v,v))) * np.arccos(s / self.magnitude)
+        r = np.concatenate(([np.log(self.magnitude)],z),axis=0)
+        return self.__class__(q=r)
+
+    @property
+    def exp(self):
+        ''' get exp of a quaternion '''
+        v = self.vector
+        vn = np.sqrt(np.dot(v,v))
+        s = self.scalar
+        r = np.exp(s)* np.concatenate(([np.cos(vn)],(np.sin(vn)/vn)*v),axis=0)
+        return self.__class__(q=r)
+
    
     def axisangle(self):
         ''' quaternion to axis-angle '''

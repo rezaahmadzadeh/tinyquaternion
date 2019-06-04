@@ -30,3 +30,8 @@ print(q1.div(q2))
 
 p = np.array([1.,2.,-1.])
 print(q1.rotatePoint(p))
+
+
+q3 = Quaternion(a=np.pi/4, n=np.array([0.,0.,1.]))
+print(q3.log)
+print(q3.exp)
