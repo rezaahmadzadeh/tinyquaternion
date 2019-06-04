@@ -216,7 +216,42 @@ Quaternion(0.0, 0.0, 0.0, -1.0)
 
 Note that these operations do not perfrom normalization implicitly.
 
-### 2.11. Rotate point in 3D space using Quaternion (axis-angle)
+### 2.11. Quaternion Log
+
+To get logarithm of a quaternion perform
+
+``` python 
+q.log
+```
+Example:
+
+``` python
+>>> q=Quaternion(np.array([0.,1.,0.,0.]))
+>>> q
+Quaternion(0.0, 1.0, 0.0, 0.0)
+>>> q.log
+Quaternion(0.0, 1.5707963267948966, 0.0, 0.0)
+```
+
+### 2.12. Quaternion Exp
+
+To get exponential of a quaternion perform
+
+``` python 
+q.exp
+```
+
+Example:
+
+``` python
+>>> q=Quaternion(np.array([0.,1.,0.,0.]))
+>>> q
+Quaternion(0.0, 1.0, 0.0, 0.0)
+>>> q.exp
+Quaternion(0.5403023058681398, 0.8414709848078965, 0.0, 0.0)
+```
+
+### 2.13. Rotate point in 3D space using Quaternion (axis-angle)
 
 ``` python
 q.rotatePoint(p)
