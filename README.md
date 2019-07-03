@@ -5,7 +5,27 @@ Author: Reza Ahmadzadeh - 2019
 
 ## 1. Installation
 
-Clone the repository. For separate projects you need to copy the `tinyQuaternion.py` file into your source folder and import the module as follows:
+There are two options:
+
+  ### 1.1 install it directly from PyPI using `pip`
+
+```python
+pip install tinyquaternion
+``` 
+
+in case you have more than one version of python on your computer, install it using `python3`
+
+```python
+python3 -m pip install tinyquaternion
+```
+
+  ### 1.2 Clone the repository. 
+
+```bash
+git clone https://github.com/rezaahmadzadeh/tinyquaternion.git
+```
+
+For separate projects you need to copy the `tinyQuaternion.py` file into your source folder and import the module as follows:
 
 ``` python
 from tinyQuaternion import Quaternion
