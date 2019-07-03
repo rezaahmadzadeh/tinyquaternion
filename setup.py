@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="example-pkg-your-username",
+    name="tinyquaternion",
     version="0.0.1",
     author="Reza Ahmadzadeh",
     author_email="reza.ahmadzadeh.iit@gmail.com",
