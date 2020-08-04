@@ -88,7 +88,7 @@ class Quaternion:
                 # self.q /= n # this will change the main object
                 return self.__class__(q= self.q / n)
 
-        return self.q
+        return self.__class__(q=self.q)
          
 
     @property
